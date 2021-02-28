@@ -2,7 +2,7 @@
 
 ## Objetive
 
-Create some functions in assembly language
+Create some functions in assembly language (intel syntax, nasm compiler)
 
 ## Use
 
