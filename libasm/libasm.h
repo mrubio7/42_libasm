@@ -6,7 +6,7 @@
 /*   By: mrubio <mrubio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 17:52:36 by mrubio            #+#    #+#             */
-/*   Updated: 2021/04/06 09:53:34 by mrubio           ###   ########.fr       */
+/*   Updated: 2021/04/06 11:13:14 by mrubio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@
 #include <fcntl.h>
 #include <string.h>
 
-#define GREEN = "\033[32m";
-#define RED = "\033[31m";
-#define END = "\033[0m";
-
 size_t		ft_strlen(const char *str);
+char		*ft_strcpy(const char *dest, const char *orig);
 
 #endif

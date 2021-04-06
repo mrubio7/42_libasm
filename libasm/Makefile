@@ -3,7 +3,8 @@ NAME = libasm.a
 CC = gcc -Werror -Wextra -Wall
 NASM = nasm -f macho64
 
-SRCS =	ft_strlen.s
+SRCS =	ft_strlen.s \
+		ft_strcpy.s
 
 OBJS = $(SRCS:.s=.o)
 
