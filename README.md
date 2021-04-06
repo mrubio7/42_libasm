@@ -9,6 +9,6 @@ Create some functions in assembly language (intel syntax, nasm compiler)
 Uses a `makefile`
 
 `make` compile all -> `libasm.a`.</br>
-`make test`compile all and execute the test.
-`make clean` clean `*.o`.
-`make fclean`clean all.
+`make test`compile all and execute the test.</br>
+`make clean` clean `*.o`.</br>
+`make fclean`clean all.</br>
