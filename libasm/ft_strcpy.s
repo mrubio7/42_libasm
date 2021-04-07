@@ -8,7 +8,7 @@ segment .text
 	compare:
 		cmp BYTE [rsi + rax], 0					; comparing rsi(src) with \0
 		jne copy								; jump if not equal
-		jump ret								; if equal 0 jump to ret
+		jmp return								; if equal 0 jump to ret
 
 	copy:
 		mov rcx, QWORD [rsi + rax]				; copy source char to rcx
@@ -16,5 +16,5 @@ segment .text
 		inc rax									; i++
 		jmp compare								; loop
 		
-	ret:
+	return:
 		ret

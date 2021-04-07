@@ -6,7 +6,7 @@
 /*   By: mrubio <mrubio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:30:17 by mrubio            #+#    #+#             */
-/*   Updated: 2021/04/06 11:40:26 by mrubio           ###   ########.fr       */
+/*   Updated: 2021/04/07 20:08:29 by mrubio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,14 @@ void	check_strlen(char *str)
 	if (n1 == n2)
 	{
 		green();
-		printf("OK [%i] ", n1);
+		printf("OK [%i]   ", n1);
+		printf(">> %s\n",str);
 	}
 	else
 	{
 		red();
-		printf("KO my:[%i] orig:[%i] ", n1, n2);
+		printf("KO   my:[%i] orig:[%i] ", n1, n2);
 	}
-	printf(">> %s\n",str);
 
 }
 
@@ -64,14 +64,33 @@ void	check_strcpy(char *str)
 	if (strcmp(or, my) == 0)
 	{
 		green();
-		printf("OK ");
+		printf("OK   ");
+		printf(">> %s\n",str);
 	}
 	else
 	{
 		red();
-		printf("KO SRC> [%s] || MY> [%s] ", or, my);
+		printf("KO   SRC> [%s] || MY> [%s] ", or, my);
 	}
-	printf(">> %s\n",str);
+}
+
+void	check_strcmp(char *s1, char *s2)
+{
+	int my;
+	int or;
+
+	my = ft_strcmp(s1, s2);
+	or = strcmp(s1, s2);
+	if (my == or)
+	{
+		green();
+		printf("OK [%i]  ||  arg1> [%s]   arg2> [%s]\n", my, s1, s2);
+	}
+	else
+	{
+		red();
+		printf("KO my[%i] or[%i]  ||  arg1> [%s]   arg2> [%s]\n", my, or, s1, s2);
+	}
 }
 
 int		main(void)
@@ -84,11 +103,20 @@ int		main(void)
 	check_strlen("1234%%&/(&$$$$$$&/(/&u567465345)");
 
 	yellow();
-	printf("FT_STRCPY\n");
+	printf("\nFT_STRCPY\n");
 	check_strcpy("Holahola");
 	check_strcpy("");
 	check_strcpy("que tal como estas 42madrid, libasm es bien, el proyecto services es el demonio");
 	check_strcpy("1234%%&(/&$$$$$$&//&u567465345)");
+
+	yellow();
+	printf("\nFT_STRCMP\n");
+	check_strcmp("Holhola", "Quetal");
+	check_strcmp("", "");
+	check_strcmp("Holhola", "");
+	check_strcmp("Holholb", "");
+	check_strcmp("Holaholb", "Holhola");
+	check_strcmp("", "Holholb");
 
 	end();
 	return (0);

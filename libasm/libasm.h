@@ -6,7 +6,7 @@
 /*   By: mrubio <mrubio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 17:52:36 by mrubio            #+#    #+#             */
-/*   Updated: 2021/04/06 11:13:14 by mrubio           ###   ########.fr       */
+/*   Updated: 2021/04/07 16:28:38 by mrubio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@
 
 size_t		ft_strlen(const char *str);
 char		*ft_strcpy(const char *dest, const char *orig);
+int			ft_strcmp(const char *s1, const char *s2);
 
 #endif

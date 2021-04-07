@@ -7,9 +7,9 @@ segment .text
 
 	iter:
 		cmp BYTE [rdi + rax], 0		; comparing rdi (arg) + rax with 0
-		je ret						; jump if equal (equal 0)
+		je return						; jump if equal (equal 0)
 		inc rax						; rax++
 		jmp iter					; loop
 
-	ret:
+	return:
 		ret							; return

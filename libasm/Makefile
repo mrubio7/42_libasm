@@ -4,7 +4,8 @@ CC = gcc -Werror -Wextra -Wall
 NASM = nasm -f macho64
 
 SRCS =	ft_strlen.s \
-		ft_strcpy.s
+		ft_strcpy.s \
+		ft_strcmp.s
 
 OBJS = $(SRCS:.s=.o)
 
