@@ -6,7 +6,7 @@
 /*   By: mrubio <mrubio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:30:17 by mrubio            #+#    #+#             */
-/*   Updated: 2021/04/07 20:08:29 by mrubio           ###   ########.fr       */
+/*   Updated: 2021/04/13 20:16:20 by mrubio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,31 @@ void	check_strcmp(char *s1, char *s2)
 	if (my == or)
 	{
 		green();
-		printf("OK [%i]  ||  arg1> [%s]   arg2> [%s]\n", my, s1, s2);
+		printf("OK   [%i]  ||  arg1> [%s]   arg2> [%s]\n", my, s1, s2);
 	}
 	else
 	{
 		red();
-		printf("KO my[%i] or[%i]  ||  arg1> [%s]   arg2> [%s]\n", my, or, s1, s2);
+		printf("KO   my[%i] or[%i]  ||  arg1> [%s]   arg2> [%s]\n", my, or, s1, s2);
+	}
+}
+
+void	check_strdup(char *str)
+{
+	char *s1;
+	char *s2;
+
+	s1 = strdup(str);
+	s2 = ft_strdup(str);
+	if (*s1 == *s2)
+	{
+		green();
+		printf("OK   || [%s]\n", str);
+	}
+	else
+	{
+		red();
+		printf("KO   || my:[%s] or:[%s]\n", s2, s1);
 	}
 }
 
@@ -117,6 +136,12 @@ int		main(void)
 	check_strcmp("Holholb", "");
 	check_strcmp("Holaholb", "Holhola");
 	check_strcmp("", "Holholb");
+
+	yellow();
+	printf("\nFT_STRDUP\n");
+	check_strdup("Hola");
+	check_strdup("");
+	check_strdup("Holadadsadnjefjl3fh3ufo3ef");
 
 	end();
 	return (0);
