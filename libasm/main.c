@@ -6,7 +6,7 @@
 /*   By: mrubio <mrubio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:30:17 by mrubio            #+#    #+#             */
-/*   Updated: 2021/04/13 20:16:20 by mrubio           ###   ########.fr       */
+/*   Updated: 2021/04/14 19:20:27 by mrubio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,15 @@ void	check_strdup(char *str)
 	}
 }
 
+void	check_write(char *str)
+{
+	write(0, "orig > ", 7);
+	write(0, str, ft_strlen(str));
+	write(0, "\nmy > ", 6);
+	ft_write(0, str, ft_strlen(str));
+	write(0, "\n", 1);
+}
+
 int		main(void)
 {
 	yellow();
@@ -142,6 +151,13 @@ int		main(void)
 	check_strdup("Hola");
 	check_strdup("");
 	check_strdup("Holadadsadnjefjl3fh3ufo3ef");
+
+
+	yellow();
+	printf("\nFT_WRITE\n");
+	check_write("Hola");
+	check_write("");
+	check_write("Holadadsadnjefjl3fh3ufo3ef");
 
 	end();
 	return (0);
