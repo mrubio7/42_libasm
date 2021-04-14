@@ -6,7 +6,7 @@
 /*   By: mrubio <mrubio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:30:17 by mrubio            #+#    #+#             */
-/*   Updated: 2021/04/14 19:20:27 by mrubio           ###   ########.fr       */
+/*   Updated: 2021/04/14 23:40:57 by mrubio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,13 +112,33 @@ void	check_strdup(char *str)
 	}
 }
 
-void	check_write(char *str)
+void	check_read(char *file)
 {
-	write(0, "orig > ", 7);
-	write(0, str, ft_strlen(str));
-	write(0, "\nmy > ", 6);
-	ft_write(0, str, ft_strlen(str));
-	write(0, "\n", 1);
+	int fd;
+	char *s1;
+	char *s2;
+	int ret_ft_read;
+	int ret_read;
+	s1 = malloc(25);
+	s2 = malloc(25);
+	fd = open(file, O_RDONLY);
+	errno = 0;
+	ret_read = read(fd, s1, 25);
+	errno = 0;
+	ret_ft_read = ft_read(fd, s2, 25);
+	if (ret_ft_read == ret_read)
+	{
+		green();
+		printf("OK > [%i][%s]\n", ret_ft_read, s2);
+	}
+	else
+	{
+		red();
+		printf("KO > Orig:[%i][%s]   My:[%i][%s]\n", ret_read, s1, ret_ft_read, s2);
+	}
+	free(s1);
+	free(s2);
+	close(fd);
 }
 
 int		main(void)
@@ -154,10 +174,10 @@ int		main(void)
 
 
 	yellow();
-	printf("\nFT_WRITE\n");
-	check_write("Hola");
-	check_write("");
-	check_write("Holadadsadnjefjl3fh3ufo3ef");
+	printf("\nFT_READ\n");
+	check_read("Makefile");
+	check_read("asfasfasda");
+	check_read("");
 
 	end();
 	return (0);
