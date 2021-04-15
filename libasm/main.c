@@ -6,7 +6,7 @@
 /*   By: mrubio <mrubio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:30:17 by mrubio            #+#    #+#             */
-/*   Updated: 2021/04/14 23:40:57 by mrubio           ###   ########.fr       */
+/*   Updated: 2021/04/15 23:17:33 by mrubio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,12 +129,12 @@ void	check_read(char *file)
 	if (ret_ft_read == ret_read)
 	{
 		green();
-		printf("OK > [%i][%s]\n", ret_ft_read, s2);
+		printf("OK errno:[%d] > [%i][%s]\n", errno, ret_ft_read, s2);
 	}
 	else
 	{
 		red();
-		printf("KO > Orig:[%i][%s]   My:[%i][%s]\n", ret_read, s1, ret_ft_read, s2);
+		printf("KO > Orig:[%i][%i][%s]   My:[%i][%i][%s]\n", ret_read, errno, s1, ret_ft_read, errno, s2);
 	}
 	free(s1);
 	free(s2);
@@ -172,12 +172,14 @@ int		main(void)
 	check_strdup("");
 	check_strdup("Holadadsadnjefjl3fh3ufo3ef");
 
-
 	yellow();
 	printf("\nFT_READ\n");
-	check_read("Makefile");
-	check_read("asfasfasda");
-	check_read("");
+	char *my = malloc(200);
+	char *ori = malloc(200);
+	int fd = open("test.txt", O_RDONLY);
+	printf("My funct > [%lu] -> [%s] // errno: %i\n", ft_read(fd, my, 50), my, errno);
+	printf("Original > [%lu] -> [%s] // errno: %i", read(fd, ori, 50), ori, errno);
+
 
 	end();
 	return (0);
