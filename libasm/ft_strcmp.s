@@ -1,24 +1,23 @@
-segment .text
-	global _ft_strcmp
+section		.text
+	global		_ft_strcmp
 
-	_ft_strcmp:							; rdi (1arg)  rsi(2arg)
-		mov rax, 0						; int i
-		jmp comp_arg_one
+	_ft_strcmp:
+		xor		rax, rax
+		xor		rdx, rdx
+		xor		rcx, rcx
 
-	comp_arg_one:
-		mov r8b, BYTE [rdi + rax]		; move rdi char to r8b
-		mov r9b, BYTE [rsi + rax]		; move rsi char to r9b
-		cmp r8b, 0						; compare char with \0
-		jne comp_args
-		jmp end
+	compare:
+		mov		al, [rdi + rcx]
+		mov		dl, [rsi + rcx]
+		cmp		al, 0
+		jz		retrn
+		cmp		dl, 0
+		jz		retrn
+		cmp		al, dl
+		jnz		retrn
+		inc		rcx
+		jmp		compare
 
-	comp_args:
-		cmp r8b, r9b					; compare chars
-		jne end
-		inc rax
-		jmp comp_arg_one
-
-	end:
-		sub r8b, r9b					; substract r9b(rsi) to r8b(rdi)
-		movsx rax, r8b					; move r8b(rdi) to rax
+	retrn:
+		sub		rax, rdx
 		ret

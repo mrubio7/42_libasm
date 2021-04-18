@@ -6,7 +6,7 @@
 /*   By: mrubio <mrubio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:30:17 by mrubio            #+#    #+#             */
-/*   Updated: 2021/04/15 23:17:33 by mrubio           ###   ########.fr       */
+/*   Updated: 2021/04/17 14:38:06 by mrubio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,12 +174,14 @@ int		main(void)
 
 	yellow();
 	printf("\nFT_READ\n");
+	char *path = "test.txt";
 	char *my = malloc(200);
 	char *ori = malloc(200);
-	int fd = open("test.txt", O_RDONLY);
+	int fd = open(path, O_RDONLY);
 	printf("My funct > [%lu] -> [%s] // errno: %i\n", ft_read(fd, my, 50), my, errno);
+	close(fd);
+	fd = open(path, O_RDONLY);
 	printf("Original > [%lu] -> [%s] // errno: %i", read(fd, ori, 50), ori, errno);
-
 
 	end();
 	return (0);

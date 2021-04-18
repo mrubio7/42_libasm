@@ -1,15 +1,30 @@
 segment .text
-	global _ft_strdup
-	extern _malloc
-	extern _ft_strlen
+	global		_ft_strdup
+	extern		_malloc
+	extern		_ft_strlen
+	extern		_ft_strcpy
+	extern		___error
 
 	_ft_strdup:
-		mov rbx, rdi		; Pasamos el arg1 (str) al rbx
-		call _ft_strlen		; Llamamos a ft_strlen que se guarda en eax
-		mov edi, eax		; Pasamos eax a edi por que malloc lo lea
-		call _malloc		; Llamamos a malloc que usa edi para saber cuanto asignar
-		mov rax, rbx		; Pasamos rbx(str) al registro de salida
-		jmp ret
+		push	rdi
+		call	_ft_strlen
+		inc		rax
+		mov		rdi, rax
+		call	_malloc
+		pop		rdi
+		or		rax, rax
+		jz		rerror
+		mov		rsi, rdi
+		mov		rdi, rax
+		call	_ft_strcpy
+		jmp		exit
 
-	ret:
+	rerror:
+		neg		rax
+		push	rax
+		call	___error
+		pop		qword[rax]
+		mov		rax, -1
+
+	exit:
 		ret
