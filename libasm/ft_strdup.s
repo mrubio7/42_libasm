@@ -1,30 +1,12 @@
 segment .text
-	global		_ft_strdup
-	extern		_malloc
-	extern		_ft_strlen
-	extern		_ft_strcpy
-	extern		___error
+	global _ft_strdup
+	extern _malloc
+	extern _ft_strlen
 
-	_ft_strdup:
-		push	rdi
-		call	_ft_strlen
-		inc		rax
-		mov		rdi, rax
-		call	_malloc
-		pop		rdi
-		or		rax, rax
-		jz		rerror
-		mov		rsi, rdi
-		mov		rdi, rax
-		call	_ft_strcpy
-		jmp		exit
-
-	rerror:
-		neg		rax
-		push	rax
-		call	___error
-		pop		qword[rax]
-		mov		rax, -1
-
-	exit:
+	_ft_strdup:						; ft_strdup(rdi)
+		mov r8, rdi					; r8 = rdi
+		call _ft_strlen				; eax = ft_strlen
+		mov edi, eax				; edi = eax
+		call _malloc				; malloc(edi)
+		mov rax, r8					; rax = r8
 		ret

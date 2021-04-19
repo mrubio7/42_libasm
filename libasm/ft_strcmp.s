@@ -1,23 +1,24 @@
-section		.text
-	global		_ft_strcmp
+segment .text
+	global _ft_strcmp
 
-	_ft_strcmp:
-		xor		rax, rax
-		xor		rdx, rdx
-		xor		rcx, rcx
+	_ft_strcmp:						; ft_strcmp(rdi, rsi)
+		mov rax, 0					; int i = 0
+		jmp compare_swap
 
-	compare:
-		mov		al, [rdi + rcx]
-		mov		dl, [rsi + rcx]
-		cmp		al, 0
-		jz		retrn
-		cmp		dl, 0
-		jz		retrn
-		cmp		al, dl
-		jnz		retrn
-		inc		rcx
-		jmp		compare
+	compare_swap:
+		mov r8b, BYTE [rdi + rax]	; move rdi char to r8b
+		mov r9b, BYTE [rsi + rax]	; move rsi char to r9b
+		cmp r8b, 0					; compare rdi(1 arg) char with \0
+		jne compare_both
+		jmp end
 
-	retrn:
-		sub		rax, rdx
+	compare_both:
+		cmp r8b, r9b				; compare chars of both args
+		jne end
+		inc rax
+		jmp compare_swap
+
+	end:
+		sub r8b, r9b				; substract rsi to rdi
+		movsx rax, r8b				; (movsx) because move 8bits to 64bits
 		ret
