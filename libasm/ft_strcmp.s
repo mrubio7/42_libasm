@@ -1,39 +1,26 @@
 segment .text
 	global _ft_strcmp
 
-_ft_strcmp:					; ft_strcmp(dest(rdi), src(rsi))
-	mov r8, rdi
-	or r8, rsi				; if (!s1 && !s2)
-	cmp r8, 0				; comparing rdi char with \0
-	je equal
+	_ft_strcmp:						; ft_strcmp(rdi, rsi)
+		mov rax, 0					; int i = 0
+		jmp compare_swap
 
-cmp_loop:
-	mov r8, [rdi]			; char rdi
-	cmp r8, 0				; comparing rdi char with \0
-	je bcmp					; if equal
-	cmp byte [rsi], 0		; comparing rsi char with \0
-	je bcmp					; if equal
-	cmp r8b, byte [rsi]		; comparing rdi char with rsi char
-	ja big					; >
-	jb low					; <
-	inc rdi					; *rdi++
-	inc rsi					; *rsi++
-	jmp cmp_loop
+	compare_swap:
+		mov r8b, BYTE [rdi + rax]	; move rdi char to r8b
+		mov r9b, BYTE [rsi + rax]	; move rsi char to r9b
+		cmp r8b, 0					; compare rdi(1 arg) char with \0
+		jne compare_both
+		jmp end
 
-bcmp:
-	cmp r8b, byte [rsi]		; comparing rdi char with rsi char
-	ja big
-	jb low
-	je equal
+	compare_both:
+		cmp r9b, 0					; compare rdi(2 arg) char with \0
+		je end
+		cmp r8b, r9b				; compare chars of both args
+		jne end
+		inc rax
+		jmp compare_swap
 
-equal:
-	mov rax, 0				; ret 0
-	ret
-
-big:
-	mov rax, 1				; ret 1
-	ret
-
-low:
-	mov rax, -1				; ret -1
-	ret
+	end:
+		sub r8b, r9b				; substract rsi to rdi
+		movsx rax, r8b				; (movsx) because move 8bits to 64bits
+		ret
