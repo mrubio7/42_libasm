@@ -6,7 +6,7 @@
 /*   By: mrubio <mrubio@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/05 20:30:17 by mrubio            #+#    #+#             */
-/*   Updated: 2021/04/17 14:38:06 by mrubio           ###   ########.fr       */
+/*   Updated: 2021/04/19 22:13:26 by mrubio           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,15 +173,27 @@ int		main(void)
 	check_strdup("Holadadsadnjefjl3fh3ufo3ef");
 
 	yellow();
-	printf("\nFT_READ\n");
+	printf("\nFT_WRITE\n");
+	char *str = "Hola hola hola que tal estassss!;";
 	char *path = "test.txt";
+	int fd = open(path, O_WRONLY);
+	write(fd, str, 33);
+	close(fd);
+	fd = open(path, O_WRONLY);
+	ft_write(fd, str, 33);
+	printf("%s", str);
+	close(fd);
+
+	yellow();
+	printf("\nFT_READ\n");
 	char *my = malloc(200);
 	char *ori = malloc(200);
-	int fd = open(path, O_RDONLY);
+	fd = open(path, O_RDONLY);
 	printf("My funct > [%lu] -> [%s] // errno: %i\n", ft_read(fd, my, 50), my, errno);
 	close(fd);
 	fd = open(path, O_RDONLY);
 	printf("Original > [%lu] -> [%s] // errno: %i", read(fd, ori, 50), ori, errno);
+	close(fd);
 
 	end();
 	return (0);

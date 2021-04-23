@@ -1,20 +1,18 @@
-segment .text
+section .text
 	global _ft_strcpy
 
-	_ft_strcpy:						; arg1: rdi(dst)  arg2: rsi(src)
-		mov rax, 0					; int i = 0
-		jmp compare
+	_ft_strcpy:						; 1arg(dest)[rdi]   2arg(src)[rsi]
+		mov rax, rdi				; mov rdi to rax
+		xor rcx, rcx				; rcx to 0
 
-	compare:
-		cmp BYTE [rsi + rax], 0					; comparing rsi(src) with \0
-		jne copy								; jump if not equal
-		jmp return								; if equal 0 jump to ret
+	loop:
+		cmp byte [rsi + rcx], 0		; compare rsi == \0
+		je exit						; jump if equal 0
+		mov r8b, [rsi + rcx]		; copy char of rsi to r8b
+		mov [rcx + rax], r8b		; copy r8b to rax
+		inc rcx
+		jmp loop
 
-	copy:
-		mov rcx, QWORD [rsi + rax]				; copy source char to rcx
-		mov QWORD [rdi + rax], rcx				; copy rcx to dest
-		inc rax									; i++
-		jmp compare								; loop
-		
-	return:
+	exit:
+		mov byte[rcx + rax], 0		; set \0 to end of rcx
 		ret
